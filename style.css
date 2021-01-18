@@ -1,0 +1,84 @@
+.gallery {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.gallery_track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery_item {
+  flex-shrink: 0;
+  width: 300px;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+}
+
+.gallery_item:nth-child(1) {
+  background-color: red;
+}
+
+.gallery_item:nth-child(2) {
+  background-color: yellow;
+}
+
+.gallery_item:nth-child(3) {
+  background-color: green;
+}
+
+.gallery_button {
+  position: absolute;
+  top: 87.5px;
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none; 
+  cursor: pointer;
+}
+
+.gallery_button.grab {
+  cursor: grab;
+}
+
+.gallery_button.grabbing{
+  cursor: grabbing;
+}
+
+.gallery_button:hover {
+  opacity: 0.5;
+}
+
+.gallery_button:focus {
+  outline: none;
+}
+
+.gallery_button:active {
+  opacity: 0.7;
+}
+
+/* 
+Получить закодированный SVG для корректного отображения в InternetExplorer
+https://yoksel.github.io/url-encoder/ru/
+Подробнее:
+http://css.yoksel.ru/inline-styles-in-background/
+*/
+
+.gallery_button__left {
+  left: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='silver' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.gallery_button__right {
+  right: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='silver' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
