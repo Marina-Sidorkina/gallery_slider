@@ -3,6 +3,7 @@ const buttonLeft = document.querySelector('.gallery_button__left');
 const buttonRight = document.querySelector('.gallery_button__right');
 const photosAmount = document.querySelectorAll('.gallery_item').length;
 const shiftStep = document.querySelector('.gallery_item').offsetWidth;
+
 let count = 1;
 let shift = 0;
 
@@ -21,6 +22,9 @@ function moveLeft() {
     count--;
   }
 }
+
+track.style.transitionProperty = 'transform';
+track.style.transitionDuration = '500ms';
 
 buttonRight.addEventListener('click', () => {
   moveRigth()
