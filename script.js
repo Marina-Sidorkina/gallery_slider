@@ -2,8 +2,9 @@ const gallery = document.querySelector('.gallery');
 const track = document.querySelector('.gallery_track');
 const buttonLeft = document.querySelector('.gallery_button__left');
 const buttonRight = document.querySelector('.gallery_button__right');
-const photosAmount = document.querySelectorAll('.gallery_item').length;
-const shiftStep = document.querySelector('.gallery_item').offsetWidth;
+const galleryItems = document.querySelectorAll('.gallery_item');
+const photosAmount = galleryItems.length;
+const shiftStep = galleryItems[0].offsetWidth;
 const hammer = new Hammer(gallery);
 
 let count = 1;
