@@ -7,6 +7,15 @@
   overflow-x: hidden;
 }
 
+.gallery:hover {
+  cursor: grab;
+}
+
+.gallery.grabbing {
+  cursor: grabbing;
+}
+
+
 .gallery_track {
   display: flex;
   margin: 0;
@@ -44,14 +53,6 @@
   background: none;
   border: none; 
   cursor: pointer;
-}
-
-.gallery_button.grab {
-  cursor: grab;
-}
-
-.gallery_button.grabbing{
-  cursor: grabbing;
 }
 
 .gallery_button:hover {

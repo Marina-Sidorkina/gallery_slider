@@ -14,7 +14,7 @@ function moveRight() {
     shift -= shiftStep;
     track.style.transform = `translateX(${shift}px)`;
     count++;
-  }
+  } 
 }
 
 function moveLeft() {
@@ -26,13 +26,12 @@ function moveLeft() {
 }
 
 track.style.transitionProperty = 'transform';
-track.style.transitionDuration = '500ms';
-hammer.get("swipe");
+track.style.transitionDuration = '300ms';
 
+hammer.get("swipe");
 hammer.on("swipeleft", () => {
      moveRight();
 });
-
 hammer.on("swiperight", () => {
     moveLeft()
 });
@@ -44,6 +43,17 @@ buttonRight.addEventListener('click', () => {
 buttonLeft.addEventListener('click', () => {
   moveLeft()
 });
+
+gallery.addEventListener('pointerdown', () => {
+  gallery.classList.add('grabbing');
+});
+
+document.addEventListener('pointerup', () => {
+  if(gallery.classList.contains('grabbing')) {
+    gallery.classList.remove('grabbing');
+  }
+});
+
 
 // Touch Slider on native JavaScript https://codepen.io/i-did/pen/yLYRvVL
 // Hammer.js https://hammerjs.github.io/getting-started/
