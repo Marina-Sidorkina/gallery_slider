@@ -37,6 +37,7 @@ class Slider {
     this._indicatorsList = indicatorsBlock.querySelectorAll('div');
     this._indicatorColor = color;
     this._indicatorsList[0].style.backgroundColor = this._indicatorColor;
+
     this._gallery.appendChild(indicatorsBlock);
   }
 
@@ -111,6 +112,10 @@ class Slider {
     if (this._state.isRendered) {
       if(this._hasPointer) {
         this._gallery.classList.remove('grab');
+      }
+      if(this._indicatorsList) {
+        this._indicatorsList = null;
+        this._gallery.removeChild(this._gallery.lastChild)
       }
       this._removeListeners();
       this._hammer.remove('swipe');
