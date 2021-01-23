@@ -8,6 +8,7 @@ class Slider {
     this._shiftStep = itemsList[0].offsetWidth;
     this._hammer = new Hammer(this._gallery);
     this._hasPointer = pointer;
+    this._indicatorsBlock = null;
     this._indicatorsList = null;
     this._indicatorColor = null;
     this._addGrabPointer = this._addGrabPointer.bind(this);
@@ -28,27 +29,29 @@ class Slider {
 
   set indicatorsList(params) {
     const {size, background, color, space, border, bottom} = params;
-    const indicatorsBlock = Slider.createIndicatorsBlock(bottom);
+    this._indicatorsBlock = Slider.createIndicatorsBlock(bottom);
 
     for(let i = 0; i < this._photosAmount; i++) {
-      Slider.createIndicator(indicatorsBlock, size, background, space, border)
+      Slider.createIndicator(this._indicatorsBlock, size, background, space, border)
     }
 
-    this._indicatorsList = indicatorsBlock.querySelectorAll('div');
+    this._indicatorsList = this._indicatorsBlock.querySelectorAll('div');
     this._indicatorColor = color;
     this._indicatorsList[0].style.backgroundColor = this._indicatorColor;
 
-    this._gallery.appendChild(indicatorsBlock);
+    this._gallery.appendChild(this._indicatorsBlock);
   }
 
   _moveRight() {
     if(this._state.count < this._photosAmount) {
       this._state.shift -= this._shiftStep;
       this._track.style.transform = `translateX(${this._state.shift}px)`;
+
       if(this._indicatorsList) {
         this._indicatorsList[this._state.count].style.backgroundColor = this._indicatorColor;
         this._indicatorsList[this._state.count - 1].style.backgroundColor = 'transparent';
       }
+
       this._state.count++;
     } 
   }
@@ -58,6 +61,7 @@ class Slider {
       this._state.shift += this._shiftStep;
       this._track.style.transform = `translateX(${this._state.shift}px)`;
       this._state.count--;
+
       if(this._indicatorsList) {
         this._indicatorsList[this._state.count - 1].style.backgroundColor = this._indicatorColor;
         this._indicatorsList[this._state.count].style.backgroundColor = 'transparent';
@@ -80,6 +84,7 @@ class Slider {
     this._hammer.on('swiperight', this._moveLeft);
     this._buttonRight.addEventListener('click',  this._moveRight);
     this._buttonLeft.addEventListener('click', this._moveLeft);
+
     if(this._hasPointer) {
       this._gallery.addEventListener('pointerdown', this._addGrabPointer);
       document.addEventListener('pointerup', this._removeGrabPointer); 
@@ -91,6 +96,7 @@ class Slider {
     this._hammer.off('swiperight', this._moveLeft);
     this._buttonRight.removeEventListener('click',  this._moveRight);
     this._buttonLeft.removeEventListener('click', this._moveLeft);
+
     if(this._hasPointer) {
       this._gallery.removeEventListener('pointerdown', this._addGrabPointer);
       document.removeEventListener('pointerup', this._removeGrabPointer);
@@ -99,9 +105,11 @@ class Slider {
 
   render() {
     if (!this._state.isRendered) {
+
       if(this._hasPointer) {
         this._gallery.classList.add('grab');
       }
+
       this._hammer.get('swipe');
       this._createListeners();
       this._state.isRendered = true;
@@ -110,13 +118,17 @@ class Slider {
 
   unrender() {
     if (this._state.isRendered) {
+
       if(this._hasPointer) {
         this._gallery.classList.remove('grab');
       }
-      if(this._indicatorsList) {
+
+      if(this._indicatorsBlock) {
+        this._gallery.removeChild(this._gallery.lastChild);
         this._indicatorsList = null;
-        this._gallery.removeChild(this._gallery.lastChild)
+        this._indicatorsBlock = null;
       }
+
       this._removeListeners();
       this._hammer.remove('swipe');
       this._state.isRendered = false;
