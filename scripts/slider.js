@@ -8,8 +8,8 @@ class Slider {
     this._shiftStep = itemsList[0].offsetWidth;
     this._hammer = new Hammer(this._gallery);
     this._hasPoiner = pointer;
-    this._addPointerClass = this._addPointerClass.bind(this);
-    this. _removePointerClass = this. _removePointerClass.bind(this);
+    this._addGrabPointer = this._addGrabPointer.bind(this);
+    this._removeGrabPointer = this._removeGrabPointer.bind(this);
     this._moveRight = this._moveRight.bind(this);
     this._moveLeft = this._moveLeft.bind(this);
     this._state = {
@@ -40,11 +40,11 @@ class Slider {
     }
   }
 
-  _addPointerClass() {
+  _addGrabPointer() {
     this._gallery.classList.add('grabbing');
   }
 
-  _removePointerClass() {
+  _removeGrabPointer() {
     if(this._gallery.classList.contains('grabbing')) {
       this._gallery.classList.remove('grabbing');
     }
@@ -56,8 +56,8 @@ class Slider {
     this._buttonRight.addEventListener('click',  this._moveRight);
     this._buttonLeft.addEventListener('click', this._moveLeft);
     if(this._hasPoiner) {
-      this._gallery.addEventListener('pointerdown', this._addPointerClass);
-      document.addEventListener('pointerup', this. _removePointerClass); 
+      this._gallery.addEventListener('pointerdown', this._addGrabPointer);
+      document.addEventListener('pointerup', this._removeGrabPointer); 
     }
   }
 
@@ -67,8 +67,8 @@ class Slider {
     this._buttonRight.removeEventListener('click',  this._moveRight);
     this._buttonLeft.removeEventListener('click', this._moveLeft);
     if(this._hasPoiner) {
-      this._gallery.removeEventListener('pointerdown', this._addPointerClass);
-      document.removeEventListener('pointerup', this. _removePointerClass);
+      this._gallery.removeEventListener('pointerdown', this._addGrabPointer);
+      document.removeEventListener('pointerup', this._removeGrabPointer);
     }
   }
 
