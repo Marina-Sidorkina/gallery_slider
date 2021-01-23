@@ -6,4 +6,5 @@ const galleryItems = document.querySelectorAll('.gallery_item');
 
 const slider = new Slider(gallery, track, buttonLeft, buttonRight, galleryItems);
 slider.transitionDuration = 300;
+slider.indicatorsList = {size: 7, background: 'transparent', color: 'silver', space: 5, border: '1px solid silver', bottom: 10};
 slider.render();
