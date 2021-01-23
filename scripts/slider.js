@@ -7,7 +7,7 @@ class Slider {
     this._photosAmount = itemsList.length;
     this._shiftStep = itemsList[0].offsetWidth;
     this._hammer = new Hammer(this._gallery);
-    this._hasPoiner = pointer;
+    this._hasPointer = pointer;
     this._addGrabPointer = this._addGrabPointer.bind(this);
     this._removeGrabPointer = this._removeGrabPointer.bind(this);
     this._moveRight = this._moveRight.bind(this);
@@ -55,7 +55,7 @@ class Slider {
     this._hammer.on('swiperight', this._moveLeft);
     this._buttonRight.addEventListener('click',  this._moveRight);
     this._buttonLeft.addEventListener('click', this._moveLeft);
-    if(this._hasPoiner) {
+    if(this._hasPointer) {
       this._gallery.addEventListener('pointerdown', this._addGrabPointer);
       document.addEventListener('pointerup', this._removeGrabPointer); 
     }
@@ -66,7 +66,7 @@ class Slider {
     this._hammer.off('swiperight', this._moveLeft);
     this._buttonRight.removeEventListener('click',  this._moveRight);
     this._buttonLeft.removeEventListener('click', this._moveLeft);
-    if(this._hasPoiner) {
+    if(this._hasPointer) {
       this._gallery.removeEventListener('pointerdown', this._addGrabPointer);
       document.removeEventListener('pointerup', this._removeGrabPointer);
     }
@@ -74,6 +74,9 @@ class Slider {
 
   render() {
     if (!this._state.isRendered) {
+      if(this._hasPointer) {
+        this._gallery.classList.add('grab');
+      }
       this._hammer.get('swipe');
       this._createListeners();
       this._state.isRendered = true;
@@ -82,6 +85,9 @@ class Slider {
 
   unrender() {
     if (this._state.isRendered) {
+      if(this._hasPointer) {
+        this._gallery.classList.remove('grab');
+      }
       this._removeListeners();
       this._hammer.remove('swipe');
       this._state.isRendered = false;
